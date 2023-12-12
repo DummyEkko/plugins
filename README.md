@@ -1,2 +1,1 @@
-# plugins
-some plugins
+## 记录一些 hooks 和 plugins

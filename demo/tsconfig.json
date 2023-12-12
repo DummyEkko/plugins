@@ -1,0 +1,23 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    // Web 应用需要 DOM 环境
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "jsx": "preserve",
+    "paths": {
+      "@/*": ["src/*"],
+      "@dummy/hooks": ["../hooks/src"]
+    },
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/**/*.ts",
+    "../env.d.ts"
+, "../hooks/src/types.ts"  ],
+  // "references": [{ "path": "../tsconfig.node.json" }],
+  "exclude": ["node_modules", "dist", "**/*.js"]
+}

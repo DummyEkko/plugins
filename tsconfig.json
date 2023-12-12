@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    // https://cn.vitejs.dev/guide/features.html#typescript-compiler-options
+    "isolatedModules": true,
+    "useDefineForClassFields": true
+  },
+  "references": [{ "path": "./tsconfig.node.json" }, { "path": "./tsconfig.src.json" }]
+}
