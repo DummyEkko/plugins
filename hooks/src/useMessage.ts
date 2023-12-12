@@ -3,7 +3,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 interface Options<T> {
   name: string;
-  onMsg: (msg: T, e: MessageEvent<any>) => void;
+  onMsg: (msg: T, e: MessageEvent<any> | StorageEvent) => void;
 }
 
 interface Return<T> {
@@ -34,11 +34,25 @@ export function useMessage<T>({
       console.log('Received message:', event.data);
     };
   }
+
+  const initLocalStorage = (event: StorageEvent) => {
+    if (event.key === name) {
+      // 处理值的变化
+      console.log('新的值是：' + event.newValue);
+      if (!event.newValue) {
+        return
+      }
+      const data = JSON.parse(event.newValue)
+      onMsg?.(data, event)
+    }
+  }
   
   const sendMsg = (data: T) => {
-    if (!channel.value) return
-    // 发送消息
-    channel.value.postMessage(data);
+    if (channel.value) {
+      channel.value.postMessage(data);
+      return
+    }
+    localStorage.setItem(name, JSON.stringify(data));
   }
 
   const close = () => channel.value?.close?.()
@@ -47,12 +61,14 @@ export function useMessage<T>({
     if (typeof BroadcastChannel === 'function') {
       initBroadcastChannel()
     } else {
-      // 监听 localstorege
+      // 在标签页B中监听storage事件
+      window.addEventListener('storage', initLocalStorage);
     }
   })
 
   onUnmounted(() => {
     close()
+    window.removeEventListener('storage', initLocalStorage)
   })
   
 
