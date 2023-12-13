@@ -7,8 +7,26 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
+// import { useMessage } from '@dummy/hooks'
+
+// const { sendMsg, eventListenersMap } = useMessage<{ status: number, msg: string }>({
+//   name: 'test',
+//   onMsg: ({ msg }) => {
+//     console.log(msg);
+    
+//   }
+// })
+
 
 onMounted(() => {
+  // console.log('app');
+
+  // sendMsg({
+  //   status: 1,
+  //   msg: 'app mounted'
+  // })
+  // console.log(eventListenersMap);
+
   // const iframe = document.querySelector("iframe");
   // if (!iframe) return
   // iframe.onload = function () {

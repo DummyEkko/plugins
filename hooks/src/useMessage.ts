@@ -1,4 +1,4 @@
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, effectScope } from 'vue'
 
 
 interface Options<T> {
@@ -13,12 +13,11 @@ interface Return<T> {
 
 
 /**
- * 注册一个通信频道，用于tab、或者iframe通信
+ * 注册一个通信频道，用于tab通信
  * @param {string} name - 注册通道用的名字
  * @param {Function} onMsg 监听消息返回
  * @returns {Return}
  */
-
 export function useMessage<T>({
   name = 'test_channel',
   onMsg
@@ -36,6 +35,7 @@ export function useMessage<T>({
   }
 
   const initLocalStorage = (event: StorageEvent) => {
+    debugger
     if (event.key === name) {
       // 处理值的变化
       console.log('新的值是：' + event.newValue);
@@ -74,6 +74,6 @@ export function useMessage<T>({
 
   return {
     sendMsg,
-    close
+    close,
   }
 }

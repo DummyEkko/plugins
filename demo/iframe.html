@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>iframe</div>
+    <div class="output"></div>
+    <script>
+      let messagePort;
+  
+      window.addEventListener('message', function(event) {
+        console.log(event);
+        if (event.data === 'init') {
+          messagePort = event.ports[0];
+          messagePort.onmessage = function(event) {
+            console.log('Received message:', event.data);
+            // messagePort.postMessage('Hello from iframe!');
+          };
+        }
+      });
+    </script>
+  
+
+  </body>
+</html>
