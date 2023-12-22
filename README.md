@@ -1,11 +1,12 @@
 ## 记录一些 hooks 和 plugins
 
 
-hooks 中副作用清除
+### hooks 中副作用清除
 
-
-https://github.com/vuejs/rfcs/blob/master/active-rfcs/0041-reactivity-effect-scope.md
+createSharedComposable 帮助清除副作用，并且实例化一个hooks。见demo： useMouse.ts
 
 
 - hooks
   - 跨tab通信hooks
+
+

@@ -1,29 +1,31 @@
-import { onScopeDispose, effectScope } from 'vue'
-import type { EffectScope  } from 'vue'
+import { effectScope, onScopeDispose } from 'vue';
 
-function createSharedComposable<T extends (...args: any[]) => any>(composable: T) {
-  let subscribers = 0
-  let state: ReturnType<T> | null = null;
-  let scope: EffectScope | null = null;
+type Composable<T extends any[] = any[], R = any> = (...args: T) => R;
+
+function createSharedComposable<T extends any[] = any[], R = any>(composable: Composable<T, R>): Composable<T, R> {
+  let subscribers = 0;
+  let state: R | null = null;
+  let scope: ReturnType<typeof effectScope> | null = null;
 
   const dispose = () => {
     if (scope && --subscribers <= 0) {
-      scope.stop()
-      state = scope = null
+      scope.stop();
+      state = scope = null;
     }
-  }
+  };
 
-  return (...args: Parameters<T>): ReturnType<T> => {
-    subscribers++
+  return (...args: T): R => {
+    subscribers++;
     if (!state) {
-      scope = effectScope(true)
-      state = scope.run<typeof composable>(() => composable(...args)) as ReturnType<T>
+      scope = effectScope(true);
+      const result = scope.run(() => composable(...args));
+      if (result !== undefined) {
+        state = result;
+      }
     }
-    onScopeDispose(dispose)
-    return state as ReturnType<T>
-  }
+    onScopeDispose(dispose);
+    return state as R;
+  };
 }
 
-export {
-  createSharedComposable
-}
+export default createSharedComposable
