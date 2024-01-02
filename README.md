@@ -1,10 +1,8 @@
-## 记录一些 hooks 和 plugins
-
+## 一些学习的demo
 
 ### hooks 中副作用清除
 
 createSharedComposable 帮助清除副作用，并且实例化一个hooks。见demo： useMouse.ts
-
 
 - hooks
   - 跨tab通信hooks

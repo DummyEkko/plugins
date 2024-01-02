@@ -5,16 +5,21 @@ import TabB from '../pages/TabB.vue'
 const router = createRouter({
   history: createWebHashHistory('/'),
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'tabA',
+    //   component: TabA
+    // },
+    // {
+    //   path: '/tab-b',
+    //   name: 'tabB',
+    //   component: TabB
+    // },
     {
       path: '/',
-      name: 'tabA',
-      component: TabA
-    },
-    {
-      path: '/tab-b',
-      name: 'tabB',
-      component: TabB
-    },
+      name: 'gl',
+      component: () => import('@/pages/webgl.vue')
+    }
   ]
 })
 

@@ -6,7 +6,6 @@ import inquirer from 'inquirer'
 async function create(projectName, options) {
   const cwd = process.cwd()
   const targetDir = path.join(cwd, projectName)
-  console.log(chalk.red.bold.bgBlue(`Creating ${projectName}`))
 
   if (fs.existsSync(targetDir)) {
     console.log(chalk.red(`${projectName} 文件名重复`))
